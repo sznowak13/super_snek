@@ -48,10 +48,12 @@ def main(win):
         display.help_info()
         cmd = display.get_user_input()
         if cmd == "START":
-            display.clear_scr()
+            display.clear_game_board()
             start_game(game, display)
         elif cmd == "OPTIONS":
             display.show_options()
+        elif cmd == "QUIT":
+            app_running = False
 
 
 if __name__ == '__main__':

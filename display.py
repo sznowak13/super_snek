@@ -99,7 +99,7 @@ class ConsoleDisplay:
             if cmd == ord('q'):
                 return 'QUIT'
             elif cmd == ord('r'):
-                self.win.clear()
+                self.clear_game_board()
                 self.win.nodelay(True)
                 return 'RESTART'
 
@@ -107,8 +107,18 @@ class ConsoleDisplay:
         pass
 
     def help_info(self):
-        help_info = "Press 's' to start, press 'o' for options, press 'q' to quit"
-        self.win.addstr(self.maxyx[0] // 2, self.maxyx[1] // 2, help_info)
+        infos = (
+            "Press 's' to start",
+            "press 'o' for options",
+            "press 'q' to quit",
+        )
+        info_len = len(infos)
+        for i, info in enumerate(infos):
+            # Centering options prompts
+            y_origin = self.maxyx[0] // 2 + (i - info_len // 2)
+            x_origin = self.maxyx[1] // 2 - len(info) // 2
+            self.win.addstr(y_origin, x_origin, info)
 
-    def clear_scr(self):
-        self.win.clear()
+    def clear_game_board(self):
+        self.win.move(self.offset[0] - 3, self.offset[1])
+        self.win.clrtobot()
