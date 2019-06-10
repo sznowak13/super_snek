@@ -25,11 +25,10 @@ class Game:
     def __init__(self, config: Config):
         self.config = config
         self.level = Level(config.level_size)
-        self.snake = Snake(config.snake_size, *config.snake_pos, config.DIRS)
-        self.food = Food(*generate_random_pos(1, self.level.size - 1,
-                                              avoid=[(part.x, part.y) for part in self.snake.tail.body]))
         self.points = 0
-        self.speed = config.game_speed
+        self.speed = 0
+        self.snake = None
+        self.food = None
 
     @property
     def actual_bonus(self):
@@ -39,12 +38,13 @@ class Game:
         self.level.objects.append(self.snake)
         self.level.objects.append(self.food)
 
-    def restart(self):
+    def start(self):
         self.points = 0
         self.speed = self.config.game_speed
         self.level.clear_objects()
         self.snake = Snake(self.config.snake_size, *self.config.snake_pos, self.config.DIRS)
-        self.food = Food(2, 2)
+        self.food = Food(*generate_random_pos(1, self.level.size - 1,
+                                              avoid=[(part.x, part.y) for part in self.snake.tail.body]))
         self.setup()
 
     def process_move(self):
