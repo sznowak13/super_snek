@@ -73,9 +73,10 @@ class ConsoleDisplay:
     def display_gameover(self, game, err):
         curses.cbreak()
         self.win.nodelay(False)
-        self.win.addstr(self.offset[0] - 3, self.offset[1], "GAME OVER: " + str(err), curses.color_pair(game.config.get_color("ERR")))
+        self.win.addstr(self.offset[0] - 3, self.offset[1], "GAME OVER: " + str(err),
+                        curses.color_pair(game.config.get_color("ERR")))
         self.win.addstr(self.offset[0] - 2, self.offset[1], "Press 'q' to quit or 'r' to restart",
-                   curses.color_pair(game.config.get_color("INFO")))
+                        curses.color_pair(game.config.get_color("INFO")))
 
         while True:
             cmd = self.win.getch()
