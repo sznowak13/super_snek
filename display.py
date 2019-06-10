@@ -22,13 +22,20 @@ class ConsoleDisplay:
             curses.init_pair(i + 1, i, -1)
         curses.noecho()
         curses.curs_set(0)
+
+    def start_game_display(self):
         self.win.nodelay(True)
 
-    def get_user_input(self, dirs):
+    def stop_game_display(self):
+        self.win.nodelay(False)
+
+    def get_user_input(self, dirs=None):
+        if dirs is None:
+            dirs = {}
         inpt = self.win.getch()
         if inpt in self.USER_COMMANDS:
             return self.USER_COMMANDS[inpt]
-        else:
+        elif dirs:
             return self.get_dir(inpt, dirs)
 
     def get_dir(self, move, dirs):
