@@ -86,3 +86,13 @@ class ConsoleDisplay:
                 self.win.clear()
                 self.win.nodelay(True)
                 return 'RESTART'
+
+    def show_options(self):
+        pass
+
+    def help_info(self):
+        help_info = "Press 's' to start, press 'o' for options, press 'q' to quit"
+        self.win.addstr(self.maxyx[0] // 2, self.maxyx[1] // 2, help_info)
+
+    def clear_scr(self):
+        self.win.clear()
