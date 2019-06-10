@@ -8,12 +8,28 @@ class ConsoleDisplay:
         ord('s'): "START"
     }
 
+    HEADER = (
+        r' _____                         _____            _    ',
+        r'/  ___|                       /  ___|          | |   ',
+        r'\ `--. _   _ _ __   ___ _ __  \ `--. _ __   ___| | __',
+        r" `--. | | | | '_ \ / _ | '__|  `--. | '_ \ / _ | |/ /",
+        r'/\__/ | |_| | |_) |  __| |    /\__/ | | | |  __|   < ',
+        r'\____/ \__,_| .__/ \___|_|    \____/|_| |_|\___|_|\_\\',
+        r"            | |                                      ",
+        r"            |_|                                      ",
+        r"               Also called P Y T H O N"
+    )
+
     def __init__(self, win, lvl_size):
         self.win = win
         self.setup_curses()
         self.maxyx = win.getmaxyx()
         # offset's x coordinate is modified for better visual experience
-        self.offset = ((self.maxyx[0] - lvl_size) // 2, (self.maxyx[1] - lvl_size * 2) // 2)
+        self.offset = (len(self.HEADER) + 3, (self.maxyx[1] - lvl_size * 2) // 2)
+
+    def show_header(self):
+        for i, line in enumerate(self.HEADER):
+            self.win.addstr(i, self.offset[1], line)
 
     def setup_curses(self):
         curses.start_color()

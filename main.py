@@ -43,6 +43,7 @@ def main(win):
     display = ConsoleDisplay(win, game.level.size)
     app_running = True
     while app_running:
+        display.show_header()
         display.display_gameboard(game)
         display.help_info()
         cmd = display.get_user_input()
