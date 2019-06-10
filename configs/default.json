@@ -1,0 +1,15 @@
+{
+  "name": "DEFAULT",
+  "level_size": 25,
+  "snake_size": 4,
+  "game_speed": 50000,
+  "color_map": {
+    "FLOOR": "BLK",
+    "WALL": "CYN",
+    "SNAKE_HEAD": "L_GRN",
+    "SNAKE_BODY": "D_GRN",
+    "FOOD": "YLW",
+    "ERR": "RED",
+    "INFO": "TEAL"
+}
+}

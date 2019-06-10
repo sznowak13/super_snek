@@ -1,0 +1,15 @@
+{
+  "name": "MINI",
+  "level_size": 10,
+  "snake_size": 2,
+  "game_speed": 60000,
+  "color_map": {
+    "FLOOR": "BLK",
+    "WALL": "CYN",
+    "SNAKE_HEAD": "L_GRN",
+    "SNAKE_BODY": "D_GRN",
+    "FOOD": "YLW",
+    "ERR": "RED",
+    "INFO": "TEAL"
+}
+}
