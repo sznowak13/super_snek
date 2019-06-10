@@ -5,12 +5,9 @@ from snake import SnakeException
 from display import ConsoleDisplay
 
 
-def main(win):
-    game = Game(Config.from_json('default'))
-    game.setup()
-
-    display = ConsoleDisplay(win, game.level.size)
-
+def start_game(game, display):
+    game.start()
+    display.start_game_display()
     frame = 0
     running = True
     while running:
@@ -20,6 +17,8 @@ def main(win):
         else:
             if user_input == 'QUIT':
                 running = False
+            elif user_input == 'OPTIONS':
+                pass
 
         if not frame % game.config.game_speed:
             frame = 0
@@ -33,8 +32,25 @@ def main(win):
                 if cmd == 'QUIT':
                     running = False
                 elif cmd == 'RESTART':
-                    game.restart()
+                    game.start()
         frame += 1
+    display.stop_game_display()
+
+
+def main(win):
+    game = Game(Config.from_json('default'))
+
+    display = ConsoleDisplay(win, game.level.size)
+    app_running = True
+    while app_running:
+        display.display_gameboard(game)
+        display.help_info()
+        cmd = display.get_user_input()
+        if cmd == "START":
+            display.clear_scr()
+            start_game(game, display)
+        elif cmd == "OPTIONS":
+            display.show_options()
 
 
 if __name__ == '__main__':
