@@ -2,9 +2,10 @@ import curses
 
 
 class ConsoleDisplay:
-
     USER_COMMANDS = {
-        ord('q'): "QUIT"
+        ord('q'): "QUIT",
+        ord('o'): "OPTIONS",
+        ord('s'): "START"
     }
 
     def __init__(self, win, lvl_size):
