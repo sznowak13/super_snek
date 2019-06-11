@@ -1,3 +1,7 @@
+import os
+import json
+import datetime
+
 from random import randrange
 
 from level import Level
@@ -72,4 +76,38 @@ class Game:
     def add_points(self):
         # Normalizing the multiplier value to 0 if negative
         multiplier = max(self.config.points['max_multiplier'] - self.snake.hunger_meter, 0)
-        self.points += self.config.points['food'] + (self.config.points['hunger_bonus_base'] * multiplier)
+        self.score += self.config.points['food'] + (self.config.points['hunger_bonus_base'] * multiplier)
+
+    def check_highscore(self):
+        if not os.path.exists('./highscores.json'):
+            return True
+        with open('./highscores.json') as f:
+            scores = json.load(f)
+            if len(scores) < 10:
+                return True
+            else:
+                return scores[-1]['score'] < self.score
+
+    def save_score(self, name):
+        file = './highscores.json'
+        full_score = {
+            'name': name.decode('utf-8'),
+            'score': self.score,
+            'length': self.snake.size,
+            'config': self.config.name,
+            'date': str(datetime.datetime.now())
+        }
+        if os.path.exists(file):
+            with open(file, 'r') as f:
+                scores = json.load(f)
+            for i, score in enumerate(scores):
+                if score['score'] < self.score:
+                    scores.insert(i, full_score)
+                    break
+            while len(scores) > 10:
+                scores.pop()
+        else:
+            scores = [full_score]
+
+        with open(file, 'w') as f:
+            json.dump(scores, f)
