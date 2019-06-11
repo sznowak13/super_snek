@@ -84,7 +84,7 @@ class ConsoleDisplay:
         bonus_display_x_origin = self.offset[1] + game.level.size
         self.win.move(self.offset[0] - 1, self.offset[1])
         self.win.clrtoeol()
-        self.win.addstr(self.offset[0] - 1, self.offset[1], "POINTS: " + str(game.points))
+        self.win.addstr(self.offset[0] - 1, self.offset[1], "POINTS: " + str(game.score))
         self.win.addstr(self.offset[0] - 1, length_display_x_origin, length_display)
         self.win.addstr(self.offset[0] - 1, bonus_display_x_origin, bonus_display)
 

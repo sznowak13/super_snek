@@ -21,7 +21,7 @@ class Game:
     def __init__(self, config: Config):
         self.config = config
         self.level = Level(config.level_size)
-        self.points = 0
+        self.score = 0
         self.speed = 0
         self.snake = None
         self.food = None
@@ -37,7 +37,7 @@ class Game:
         self.level.objects.append(self.food)
 
     def start(self):
-        self.points = 0
+        self.score = 0
         self.speed = self.config.game_speed
         self.level.clear_objects()
         self.snake = Snake(self.config.snake_size, *self.config.snake_pos, self.config.DIRS)
