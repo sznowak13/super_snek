@@ -125,3 +125,12 @@ class ConsoleDisplay:
     def clear_game_board(self):
         self.win.move(self.offset[0] - 3, self.offset[1])
         self.win.clrtobot()
+
+    def ask_highscore_input(self, level_size):
+        with enter_long_input():
+            self.win.addstr(self.offset[0] + level_size + 2, self.offset[1], "New High Score! Enter your name:")
+            name = self.win.getstr()
+            self.win.move(self.offset[0] + level_size + 2, self.offset[1])
+            self.win.clrtoeol()
+            self.win.addstr(self.offset[0] + level_size + 2, self.offset[1], "Highscore saved!")
+        return name
