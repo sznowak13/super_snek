@@ -100,10 +100,14 @@ class Game:
         if os.path.exists(file):
             with open(file, 'r') as f:
                 scores = json.load(f)
+            added = False
             for i, score in enumerate(scores):
                 if score['score'] < self.score:
                     scores.insert(i, full_score)
+                    added = True
                     break
+            if not added:
+                scores.append(full_score)
             while len(scores) > 10:
                 scores.pop()
         else:
