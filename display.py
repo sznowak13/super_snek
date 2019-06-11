@@ -98,6 +98,7 @@ class ConsoleDisplay:
             for data in draw_data:
                 color = game.config.get_color(data.name)
                 self.win.addstr(data.y + self.offset[0], data.x * 2 + self.offset[1], data.ch, curses.color_pair(color))
+        self.highscores(game.get_highscores())
 
     def display_gameover(self, game, err):
         self.win.nodelay(False)
@@ -134,3 +135,14 @@ class ConsoleDisplay:
             self.win.clrtoeol()
             self.win.addstr(self.offset[0] + level_size + 2, self.offset[1], "Highscore saved!")
         return name
+
+    def highscores(self, scores):
+        self.win.addstr(self.offset[0], 2, "HIGHSCORES:")
+        i = 1
+        while scores:
+            score = scores.pop(0)
+            self.win.addstr(self.offset[0] + i, 2, "{}. {} - {}".format(i, score['name'], score['score']))
+            i += 1
+        while i < 11:
+            self.win.addstr(self.offset[0] + i, 2, "{}. ".format(i))
+            i += 1
