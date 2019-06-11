@@ -31,11 +31,23 @@ def start_game(game, display):
             try:
                 game.process_move()
             except SnakeException as e:
-                cmd = display.display_gameover(game, e)
-                if cmd == 'QUIT':
-                    running = False
-                elif cmd == 'RESTART':
-                    game.start()
+                display.stop_game_display()
+                display.display_gameover(game, e)
+                if game.check_highscore():
+                    score_name = display.ask_highscore_input(game.level.size)
+                    game.save_score(score_name)
+                    break
+                game_over = True
+                while game_over:
+                    game_over = False
+                    cmd = display.get_user_input()
+                    if cmd == 'QUIT':
+                        running = False
+                    elif cmd == 'START':
+                        game.start()
+                        display.start_game_display()
+                    else:
+                        game_over = True
         frame += 1
     display.stop_game_display()
 
