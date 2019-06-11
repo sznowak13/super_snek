@@ -93,7 +93,7 @@ class Game:
         full_score = {
             'name': name.decode('utf-8'),
             'score': self.score,
-            'length': self.snake.size,
+            'length': len(self.snake),
             'config': self.config.name,
             'date': str(datetime.datetime.now())
         }

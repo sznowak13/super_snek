@@ -38,7 +38,6 @@ class SnakeTail:
 
 class Snake:
     def __init__(self, size, x, y, dirs):
-        self.size = size
         self.head = SnakeHead(x, y)
         self.tail = SnakeTail(size, self.head)
         self.dirs = dirs
@@ -63,6 +62,9 @@ class Snake:
     @property
     def y(self):
         return self.head.y
+
+    def __len__(self):
+        return len(self.tail)
 
     def get_drawing_data(self):
         return [self.head.get_drawing_data()] + [part for part in self.tail.body]

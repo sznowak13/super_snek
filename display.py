@@ -78,7 +78,7 @@ class ConsoleDisplay:
             return dirs['LEFT']
 
     def display_stats(self, game):
-        length_display = "LENGTH: {}".format(len(game.snake.tail))
+        length_display = "LENGTH: {}".format(len(game.snake))
         bonus_display = "BONUS: {}".format(game.actual_bonus)
         length_display_x_origin = self.offset[1] + game.level.size * 2 - len(length_display) - 1
         bonus_display_x_origin = self.offset[1] + game.level.size
