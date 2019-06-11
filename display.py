@@ -141,7 +141,8 @@ class ConsoleDisplay:
         i = 1
         while scores:
             score = scores.pop(0)
-            self.win.addstr(self.offset[0] + i, 2, "{}. {} - {}".format(i, score['name'], score['score']))
+            self.win.addstr(self.offset[0] + i, 2,
+                            "{}. {} - {} pts. Len: {}".format(i, score['name'], score['score'], score['length']))
             i += 1
         while i < 11:
             self.win.addstr(self.offset[0] + i, 2, "{}. ".format(i))
