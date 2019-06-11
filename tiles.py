@@ -16,6 +16,16 @@ class Tile(ABC):
         self.y = y
 
 
+class CachedTile(Tile):
+    def __init__(self, x, y, ch, name):
+        super(CachedTile, self).__init__(x, y, ch, name)
+        self.next = x, y
+        self.prev = x, y
+
+    def cache_prev(self):
+        self.prev = self.x, self.y
+
+
 class Floor(Tile):
     def __init__(self, x, y):
         super(Floor, self).__init__(x, y, ' ', 'FLOOR')

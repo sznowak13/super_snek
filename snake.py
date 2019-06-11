@@ -1,24 +1,13 @@
-from tiles import Tile
+from tiles import CachedTile
 
 
 class SnakeException(Exception):
     pass
 
 
-class CachedTile(Tile):
-    def __init__(self, x, y, ch, name):
-        super(CachedTile, self).__init__(x, y, ch, name)
-        self.next = x, y
-        self.prev = x, y
-
-    def cache_prev(self):
-        self.prev = self.x, self.y
-
-
 class SnakeHead(CachedTile):
     def __init__(self, x, y):
         super(SnakeHead, self).__init__(x, y, 'Q', 'SNAKE_HEAD')
-        self.next_pos = x, y
 
 
 class SnakeBody(CachedTile):
@@ -63,7 +52,9 @@ class Snake:
 
     @dir.setter
     def dir(self, val):
-        self._dir = val
+        # you cant turn back
+        if not abs(self._dir - val) == 2:
+            self._dir = val
 
     @property
     def x(self):

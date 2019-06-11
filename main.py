@@ -1,6 +1,7 @@
 import curses
 
-from game import Game, Config
+from config import Config
+from game import Game
 from snake import SnakeException
 from display import ConsoleDisplay
 
@@ -10,17 +11,21 @@ def start_game(game, display):
     display.start_game_display()
     frame = 0
     running = True
+    direction = None
     while running:
         user_input = display.get_user_input(game.config.DIRS)
         if user_input in game.config.DIRS.values():
-            game.snake.dir = user_input
+            direction = user_input
         else:
             if user_input == 'QUIT':
                 running = False
             elif user_input == 'OPTIONS':
                 pass
 
-        if not frame % game.config.game_speed:
+        if not frame % game.speed:
+            if direction is not None:
+                game.snake.dir = direction
+                direction = None
             frame = 0
             display.display_stats(game)
             display.display_gameboard(game)
