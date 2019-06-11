@@ -3,6 +3,12 @@
   "level_size": 25,
   "snake_size": 4,
   "game_speed": 50000,
+  "speed_delta": 500,
+  "points": {
+    "max_multiplier": 50,
+    "food": 500,
+    "hunger_bonus_base": 100
+  },
   "color_map": {
     "FLOOR": "BLK",
     "WALL": "CYN",

@@ -18,10 +18,6 @@ def generate_random_pos(start, stop, avoid=None):
 
 class Game:
 
-    MAX_MULTIPLIER = 50
-    FOOD_POINTS = 500
-    HUNGER_BONUS_BASE = 100
-
     def __init__(self, config: Config):
         self.config = config
         self.level = Level(config.level_size)
@@ -32,7 +28,9 @@ class Game:
 
     @property
     def actual_bonus(self):
-        return max((self.MAX_MULTIPLIER - self.snake.hunger_meter) * self.HUNGER_BONUS_BASE, 0)
+        return max(
+            (self.config.points['max_multiplier'] - self.snake.hunger_meter) * self.config.points['hunger_bonus_base'],
+            0)
 
     def setup(self):
         self.level.objects.append(self.snake)
@@ -66,12 +64,12 @@ class Game:
     def was_food_eaten(self):
         if self.food.x == self.snake.x and self.food.y == self.snake.y:
             self.add_points()
-            self.speed -= 500
+            self.speed -= self.config.speed_delta
             self.snake.food_eaten = True
             self.food.update_pos(
                 *generate_random_pos(1, self.level.size - 1, avoid=[(part.x, part.y) for part in self.snake.tail.body]))
 
     def add_points(self):
         # Normalizing the multiplier value to 0 if negative
-        multiplier = max(self.MAX_MULTIPLIER - self.snake.hunger_meter, 0)
-        self.points += self.FOOD_POINTS + (self.HUNGER_BONUS_BASE * multiplier)
+        multiplier = max(self.config.points['max_multiplier'] - self.snake.hunger_meter, 0)
+        self.points += self.config.points['food'] + (self.config.points['hunger_bonus_base'] * multiplier)

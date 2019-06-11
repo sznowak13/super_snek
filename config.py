@@ -25,6 +25,8 @@ class Config:
         'level_size',
         'snake_size',
         'game_speed',
+        'speed_delta',
+        'points',
         'color_map'
     )
 
