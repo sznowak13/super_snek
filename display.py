@@ -52,6 +52,7 @@ class ConsoleDisplay:
         curses.curs_set(0)
 
     def start_game_display(self):
+        self.clear_game_board()
         self.win.nodelay(True)
 
     def stop_game_display(self):
