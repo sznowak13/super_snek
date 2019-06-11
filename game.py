@@ -115,3 +115,13 @@ class Game:
 
         with open(file, 'w') as f:
             json.dump(scores, f)
+
+    def get_highscores(self):
+        if not os.path.exists('./highscores.json'):
+            return []
+        with open('./highscores.json') as f:
+            try:
+                scores = json.load(f)
+            except json.JSONDecodeError:
+                scores = []
+        return scores
