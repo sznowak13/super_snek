@@ -124,7 +124,7 @@ class ConsoleDisplay:
             self.win.addstr(y_origin, x_origin, info)
 
     def clear_game_board(self):
-        self.win.move(self.offset[0] - 3, self.offset[1])
+        self.win.move(self.offset[0] - 3, 0)
         self.win.clrtobot()
 
     def ask_highscore_input(self, level_size):

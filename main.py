@@ -36,6 +36,7 @@ def start_game(game, display):
                 if game.check_highscore():
                     score_name = display.ask_highscore_input(game.level.size)
                     game.save_score(score_name)
+                    display.clear_game_board()
                     break
                 game_over = True
                 while game_over:
