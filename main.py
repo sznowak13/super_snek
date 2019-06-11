@@ -50,7 +50,6 @@ def start_game(game, display):
                     else:
                         game_over = True
         frame += 1
-    display.stop_game_display()
 
 
 def main(win):
