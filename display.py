@@ -100,21 +100,11 @@ class ConsoleDisplay:
                 self.win.addstr(data.y + self.offset[0], data.x * 2 + self.offset[1], data.ch, curses.color_pair(color))
 
     def display_gameover(self, game, err):
-        curses.cbreak()
         self.win.nodelay(False)
         self.win.addstr(self.offset[0] - 3, self.offset[1], "GAME OVER: " + str(err),
                         curses.color_pair(game.config.get_color("ERR")))
         self.win.addstr(self.offset[0] - 2, self.offset[1], "Press 'q' to quit or 's' to restart",
                         curses.color_pair(game.config.get_color("INFO")))
-
-        while True:
-            cmd = self.win.getch()
-            if cmd == ord('q'):
-                return 'QUIT'
-            elif cmd == ord('s'):
-                self.clear_game_board()
-                self.win.nodelay(True)
-                return 'RESTART'
 
     def show_options(self):
         pass
