@@ -1,4 +1,16 @@
 import curses
+from contextlib import contextmanager
+
+
+@contextmanager
+def enter_long_input():
+    curses.nocbreak()
+    curses.echo()
+    curses.curs_set(1)
+    yield
+    curses.cbreak()
+    curses.noecho()
+    curses.curs_set(0)
 
 
 class ConsoleDisplay:
