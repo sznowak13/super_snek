@@ -19,8 +19,6 @@ def start_game(game, display):
         else:
             if user_input == 'QUIT':
                 running = False
-            elif user_input == 'OPTIONS':
-                pass
 
         if not frame % game.speed:
             if direction is not None:
