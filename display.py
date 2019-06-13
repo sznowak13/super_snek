@@ -126,8 +126,14 @@ class ConsoleDisplay:
             self.win.addstr(y_origin, x_origin, info)
 
     def clear_game_board(self):
-        self.win.move(self.offset[0] - 3, 0)
+        # Clearing whole highscores and game board
+        self.win.move(self.offset[0], 0)
         self.win.clrtobot()
+        # clearing game over messages without game stats
+        self.win.move(self.offset[0] - 3, 0)
+        self.win.clrtoeol()
+        self.win.move(self.offset[0] - 2, 0)
+        self.win.clrtoeol()
 
     def ask_highscore_input(self, level_size):
         with enter_long_input():
