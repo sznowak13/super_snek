@@ -29,6 +29,12 @@ class ConsoleDisplay:
         ord('s'): "START"
     }
 
+    INFOS = (
+        "Press 's' to start",
+        "press 'o' for options",
+        "press 'q' to quit",
+    )
+
     HEADER = (
         r' _____                         _____            _    ',
         r'/  ___|                       /  ___|          | |   ',
@@ -112,13 +118,8 @@ class ConsoleDisplay:
         pass
 
     def help_info(self):
-        infos = (
-            "Press 's' to start",
-            "press 'o' for options",
-            "press 'q' to quit",
-        )
-        info_len = len(infos)
-        for i, info in enumerate(infos):
+        info_len = len(self.INFOS)
+        for i, info in enumerate(self.INFOS):
             # Centering options prompts
             y_origin = self.maxyx[0] // 2 + (i - info_len // 2)
             x_origin = self.maxyx[1] // 2 - len(info) // 2
