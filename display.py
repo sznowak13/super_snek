@@ -13,6 +13,15 @@ def enter_long_input():
     curses.curs_set(0)
 
 
+def setup_curses():
+    curses.start_color()
+    curses.use_default_colors()
+    for i in range(curses.COLORS):
+        curses.init_pair(i + 1, i, -1)
+    curses.noecho()
+    curses.curs_set(0)
+
+
 class ConsoleDisplay:
     USER_COMMANDS = {
         ord('q'): "QUIT",
@@ -34,7 +43,7 @@ class ConsoleDisplay:
 
     def __init__(self, win, lvl_size):
         self.win = win
-        self.setup_curses()
+        setup_curses()
         self.maxyx = win.getmaxyx()
         # offset's x coordinate is modified for better visual experience
         self.offset = (len(self.HEADER) + 3, (self.maxyx[1] - lvl_size * 2) // 2)
@@ -42,14 +51,6 @@ class ConsoleDisplay:
     def show_header(self):
         for i, line in enumerate(self.HEADER):
             self.win.addstr(i, self.offset[1], line)
-
-    def setup_curses(self):
-        curses.start_color()
-        curses.use_default_colors()
-        for i in range(curses.COLORS):
-            curses.init_pair(i + 1, i, -1)
-        curses.noecho()
-        curses.curs_set(0)
 
     def start_game_display(self):
         self.clear_game_board()
