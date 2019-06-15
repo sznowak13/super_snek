@@ -13,12 +13,27 @@ def enter_long_input():
     curses.curs_set(0)
 
 
+def setup_curses():
+    curses.start_color()
+    curses.use_default_colors()
+    for i in range(curses.COLORS):
+        curses.init_pair(i + 1, i, -1)
+    curses.noecho()
+    curses.curs_set(0)
+
+
 class ConsoleDisplay:
     USER_COMMANDS = {
         ord('q'): "QUIT",
         ord('o'): "OPTIONS",
         ord('s'): "START"
     }
+
+    INFOS = (
+        "Press 's' to start",
+        "press 'o' for options",
+        "press 'q' to quit",
+    )
 
     HEADER = (
         r' _____                         _____            _    ',
@@ -34,7 +49,7 @@ class ConsoleDisplay:
 
     def __init__(self, win, lvl_size):
         self.win = win
-        self.setup_curses()
+        setup_curses()
         self.maxyx = win.getmaxyx()
         # offset's x coordinate is modified for better visual experience
         self.offset = (len(self.HEADER) + 3, (self.maxyx[1] - lvl_size * 2) // 2)
@@ -42,14 +57,6 @@ class ConsoleDisplay:
     def show_header(self):
         for i, line in enumerate(self.HEADER):
             self.win.addstr(i, self.offset[1], line)
-
-    def setup_curses(self):
-        curses.start_color()
-        curses.use_default_colors()
-        for i in range(curses.COLORS):
-            curses.init_pair(i + 1, i, -1)
-        curses.noecho()
-        curses.curs_set(0)
 
     def start_game_display(self):
         self.clear_game_board()
@@ -111,21 +118,22 @@ class ConsoleDisplay:
         pass
 
     def help_info(self):
-        infos = (
-            "Press 's' to start",
-            "press 'o' for options",
-            "press 'q' to quit",
-        )
-        info_len = len(infos)
-        for i, info in enumerate(infos):
+        info_len = len(self.INFOS)
+        for i, info in enumerate(self.INFOS):
             # Centering options prompts
             y_origin = self.maxyx[0] // 2 + (i - info_len // 2)
             x_origin = self.maxyx[1] // 2 - len(info) // 2
             self.win.addstr(y_origin, x_origin, info)
 
     def clear_game_board(self):
-        self.win.move(self.offset[0] - 3, 0)
+        # Clearing whole highscores and game board
+        self.win.move(self.offset[0], 0)
         self.win.clrtobot()
+        # clearing game over messages without game stats
+        self.win.move(self.offset[0] - 3, 0)
+        self.win.clrtoeol()
+        self.win.move(self.offset[0] - 2, 0)
+        self.win.clrtoeol()
 
     def ask_highscore_input(self, level_size):
         with enter_long_input():
@@ -142,7 +150,7 @@ class ConsoleDisplay:
         while scores:
             score = scores.pop(0)
             self.win.addstr(self.offset[0] + i, 2,
-                            "{}. {} - {} pts. Len: {}".format(i, score['name'], score['score'], score['length']))
+                            "{:2}. {:10} - {} pts. Len: {}".format(i, score['name'], score['score'], score['length']))
             i += 1
         for j in range(i, 11):
             self.win.addstr(self.offset[0] + j, 2, "{}. ".format(i))
