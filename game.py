@@ -76,7 +76,8 @@ class Game:
     def add_points(self):
         # Normalizing the multiplier value to 0 if negative
         multiplier = max(self.config.points['max_multiplier'] - self.snake.hunger_meter, 0)
-        self.score += self.config.points['food'] + (self.config.points['hunger_bonus_base'] * multiplier)
+        points = self.config.points['food'] + (self.config.points['hunger_bonus_base'] * multiplier)
+        self.score += points
 
     def check_highscore(self):
         if not os.path.exists('./highscores.json'):

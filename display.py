@@ -26,7 +26,7 @@ class ConsoleDisplay:
         r'\ `--. _   _ _ __   ___ _ __  \ `--. _ __   ___| | __',
         r" `--. | | | | '_ \ / _ | '__|  `--. | '_ \ / _ | |/ /",
         r'/\__/ | |_| | |_) |  __| |    /\__/ | | | |  __|   < ',
-        r'\____/ \__,_| .__/ \___|_|    \____/|_| |_|\___|_|\_\\  v 1.2',
+        r'\____/ \__,_| .__/ \___|_|    \____/|_| |_|\___|_|\_\  v 1.2',
         r"            | |                                      ",
         r"            |_|                                      ",
         r"               Also called P Y T H O N"
@@ -144,6 +144,5 @@ class ConsoleDisplay:
             self.win.addstr(self.offset[0] + i, 2,
                             "{}. {} - {} pts. Len: {}".format(i, score['name'], score['score'], score['length']))
             i += 1
-        while i < 11:
-            self.win.addstr(self.offset[0] + i, 2, "{}. ".format(i))
-            i += 1
+        for j in range(i, 11):
+            self.win.addstr(self.offset[0] + j, 2, "{}. ".format(i))

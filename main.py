@@ -6,14 +6,16 @@ from snake import SnakeException
 from display import ConsoleDisplay
 
 
-def start_game(game, display):
+def start_game(game: Game, display: ConsoleDisplay):
     game.start()
     display.start_game_display()
+
     frame = 0
     running = True
     direction = None
     while running:
         user_input = display.get_user_input(game.config.DIRS)
+
         if user_input in game.config.DIRS.values():
             direction = user_input
         else:
@@ -24,6 +26,7 @@ def start_game(game, display):
             if direction is not None:
                 game.snake.dir = direction
                 direction = None
+
             frame = 0
             display.display_stats(game)
             display.display_gameboard(game)
@@ -33,15 +36,18 @@ def start_game(game, display):
             except SnakeException as e:
                 display.stop_game_display()
                 display.display_gameover(game, e)
+
                 if game.check_highscore():
                     score_name = display.ask_highscore_input(game.level.size)
                     game.save_score(score_name)
                     display.clear_game_board()
                     break
+
                 game_over = True
                 while game_over:
                     game_over = False
                     cmd = display.get_user_input()
+
                     if cmd == 'QUIT':
                         running = False
                     elif cmd == 'START':
